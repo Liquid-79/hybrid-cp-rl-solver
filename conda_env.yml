@@ -4,13 +4,13 @@ channels:
   - dglteam
   - defaults
 dependencies:
-  - _pytorch_select=0.1
-  - blas=1.0
-  - ca-certificates=2020.1.1
-  - certifi=2020.4.5.1
-  - cffi=1.14.0
+  - _pytorch_select=0.1 # 
+  - blas=1.0 # 
+  - ca-certificates=2020.1.1 # 
+  - certifi=2020.4.5.1 # 
+  - cffi=1.14.0 # 
   - cycler=0.10.0
-  - decorator=4.4.2
+  - decorator=4.4.2 # 
   - dgl=0.4.2
   - freetype=2.9.1
   - intel-openmp=2019.4
@@ -34,7 +34,7 @@ dependencies:
   - numpy-base=1.18.1
   - openssl=1.1.1g
   - pip=20.0.2
-  - pybind11=2.4.3
+  - pybind11=2.4.3 # 
   - pycparser=2.20
   - pyparsing=2.4.6
   - python=3.7.7

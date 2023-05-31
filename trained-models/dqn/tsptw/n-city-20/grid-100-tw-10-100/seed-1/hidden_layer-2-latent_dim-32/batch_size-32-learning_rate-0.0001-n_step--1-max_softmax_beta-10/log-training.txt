@@ -1,0 +1,19 @@
+***********************************************************
+[INFO] TRAINING ON RANDOM INSTANCES: TSPTW
+[INFO] n_city: 20
+[INFO] grid_size: 100
+[INFO] max_tw_gap: 10
+[INFO] max_tw_size: 100
+[INFO] seed: 1
+***********************************************************
+[INFO] TRAINING PARAMETERS
+[INFO] algorithm: DQN
+[INFO] batch_size: 32
+[INFO] learning_rate: 0.000100
+[INFO] hidden_layer: 2
+[INFO] latent_dim: 32
+[INFO] softmax_beta: 10
+[INFO] n_step: -1
+***********************************************************
+/usr/local/python/3.10.4/lib/python3.10/site-packages/dgl/heterograph.py:92: DGLWarning: Recommend creating graphs by `dgl.graph(data)` instead of `dgl.DGLGraph(data)`.
+  dgl_warning(

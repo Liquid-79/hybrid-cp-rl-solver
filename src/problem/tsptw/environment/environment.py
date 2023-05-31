@@ -54,8 +54,9 @@ class Environment:
         :return: the DGL graph
         """
 
-        g = dgl.DGLGraph()
-        g.from_networkx(self.instance.graph)
+        # g = dgl.DGLGraph()
+        # g.from_networkx(self.instance.graph)
+        g = dgl.from_networkx(self.instance.graph)
 
         node_feat = [[self.instance.x_coord[i] / self.grid_size,  # x-coord
                       self.instance.y_coord[i] / self.grid_size,  # y-coord
@@ -106,8 +107,8 @@ class Environment:
         :return: a 1D [0,1]-numpy vector a with a[i] == 1 iff action i is still possible
         """
 
-        available = np.zeros(self.instance.n_city, dtype=np.int)
-        available_idx = np.array([x for x in cur_state.must_visit], dtype=np.int)
+        available = np.zeros(self.instance.n_city, dtype=np.int64)
+        available_idx = np.array([x for x in cur_state.must_visit], dtype=np.int64)
         available[available_idx] = 1
 
         return available
