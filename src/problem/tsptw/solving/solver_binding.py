@@ -91,8 +91,9 @@ class SolverBinding(object):
         :return: the graph
         """
 
-        g = dgl.DGLGraph()
-        g.from_networkx(self.instance.graph)
+        # g = dgl.DGLGraph()
+        # g.from_networkx(self.instance.graph)
+        g = dgl.from_networkx(self.instance.graph)
 
         node_feat = [[self.instance.x_coord[i] / self.grid_size,
                       self.instance.y_coord[i] / self.grid_size,

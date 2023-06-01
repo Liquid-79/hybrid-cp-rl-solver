@@ -15,7 +15,7 @@
 #include <map>
 #include <limits>
 #include <string>
-#include "cxxopts.hpp"
+#include <cxxopts.hpp>
 
 using namespace Gecode;
 using namespace std;
