@@ -15,7 +15,7 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
 
     # Instances parameters
-    parser.add_argument('--n_city', type=int, default=20)
+    parser.add_argument('--n_city', type=int, default=21)
     parser.add_argument('--grid_size', type=int, default=100)
     parser.add_argument('--max_tw_gap', type=int, default=10)
     parser.add_argument('--max_tw_size', type=int, default=100)

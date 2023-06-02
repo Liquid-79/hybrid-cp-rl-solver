@@ -212,5 +212,3 @@ class SolverBinding(object):
         self.input_graph.edata['e_feat'] = self.edge_feat_tensor
         self.input_graph.ndata['n_feat'] = node_feat_tensor
         self.input_graph = dgl.batch([self.input_graph])
-
-
