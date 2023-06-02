@@ -3,6 +3,7 @@ import random
 import heapq
 import numpy as np
 import torch
+import re
 
 class TSPTW:
 
@@ -163,3 +164,32 @@ class TSPTW:
             seed += 1
 
         return dataset
+
+    @staticmethod
+    def read_tsptw_data(file_path):
+        with open(file_path, 'r') as f:
+            data = f.readlines()
+            n = int(data[2].strip().split(' ')[-1])
+            dist_matrix = np.zeros((n, n))
+
+            for i in range(6, 6 + n):
+                row_data = data[i].strip().split(' ')
+                for j in range(len(row_data)):
+                    dist_matrix[i-6][j] = float(row_data[j])
+            
+            x_coord = []
+            y_coord = []
+            for i in range(7 + n, 7 + 2 * n):
+                coord = data[i].strip().split(' ')
+                x_coord.append(float(coord[1]))
+                y_coord.append(float(coord[2]))
+
+            time_windows = np.zeros((n, 2))
+            for i in range(8 + 2 * n, 8 + 3 * n):
+                time_window = data[i].strip().split(' ')
+                time_windows[i-8-2*n, :] = [int(time_window[1]), int(time_window[2])]
+            # calculate travel_time and coordinates from dist_matrix
+            travel_time = dist_matrix.tolist()
+            f.close()
+            # return TSPTW object
+            return TSPTW(n, travel_time, x_coord, y_coord, time_windows)

@@ -2,6 +2,8 @@
 #include <random>
 #include <math.h>
 #include <ctime>
+#include <fstream>
+#include <stdexcept>
 
 #include <gecode/driver.hh>
 #include <gecode/int.hh>
@@ -425,7 +427,10 @@ TSPTW_DP::ModelType stringToModel (std::string const& inString) {
 int main(int argc, char* argv[]) {
     /* Python embedding */
     py::scoped_interpreter guard{};
-
+    std::ofstream log("/workspaces/hybrid-cp-rl-solver/solve.log", std::ios::out);
+    if (!log.is_open()) {
+        throw std::runtime_error("can open log file.");
+    }
     cxxopts::Options options("PybindGecode", "One line description of MyProgram");
     options.add_options()
     ("luby", "luby scaling factor", cxxopts::value<int>()->default_value("1"))
@@ -473,21 +478,26 @@ int main(int argc, char* argv[]) {
         LDS<TSPTW_DP> engine(p, o);
         delete p;
         cout << "n_city,seed,time,tour_cost" << std::endl;
+        log << "n_city,seed,time,tour_cost" << std::endl;
         while(TSPTW_DP* p = engine.next()) {
             int cur_cost = p->cost().val();
             if(cur_cost < best_cost) {
                 best_cost = cur_cost;
                 int depth = engine.statistics().depth;
                 cout << p->to_string()  << endl ;
+                log << p->to_string()  << endl ;
             }
             delete p;
         }
         cout << "BEST SOLUTION: " << best_cost << endl;
+        log << "BEST SOLUTION: " << best_cost << endl;
         if(engine.stopped()){
             cout << "TIMEOUT - OPTIMALITY PROOF NOT REACHED" << endl;
+            log << "TIMEOUT - OPTIMALITY PROOF NOT REACHED" << endl;
         }
         else{
             cout << "SEARCH COMPLETED - SOLUTION FOUND IS OPTIMAL" << endl;
+            log << "SEARCH COMPLETED - SOLUTION FOUND IS OPTIMAL" << endl;
         }
     }
 
@@ -501,21 +511,26 @@ int main(int argc, char* argv[]) {
         BAB<TSPTW_DP> engine(p, o);
         delete p;
         cout << "n_city,seed,time,tour_cost" << std::endl;
+        log << "n_city,seed,time,tour_cost" << std::endl;
         while(TSPTW_DP* p = engine.next()) {
             int cur_cost = p->cost().val();
             if(cur_cost < best_cost) {
                 best_cost = cur_cost;
                 int depth = engine.statistics().depth;
                 cout << p->to_string() << endl ;
+                log << p->to_string() << endl ;
             }
             delete p;
         }
         cout << "BEST SOLUTION: " << best_cost << endl;
+        log << "BEST SOLUTION: " << best_cost << endl;
         if(engine.stopped()){
             cout << "TIMEOUT - OPTIMALITY PROOF NOT REACHED" << endl;
+            log << "TIMEOUT - OPTIMALITY PROOF NOT REACHED" << endl;
         }
         else{
             cout << "SEARCH COMPLETED - SOLUTION FOUND IS OPTIMAL" << endl;
+            log << "SEARCH COMPLETED - SOLUTION FOUND IS OPTIMAL" << endl;
         }
     }
 
@@ -533,6 +548,7 @@ int main(int argc, char* argv[]) {
         delete p;
 
         cout << "n_city,seed,time,tour_cost" << std::endl;
+        log << "n_city,seed,time,tour_cost" << std::endl;
         while(TSPTW_DP* p = engine.next()) {
             int cur_cost = p->cost().val();
             if(cur_cost < best_cost) {
@@ -540,22 +556,27 @@ int main(int argc, char* argv[]) {
                 int num_nodes = engine.statistics().node;
                 int num_fail = engine.statistics().fail;
                 cout << p->to_string() << endl ;
+                log << p->to_string() << endl ;
             }
             delete p;
         }
         cout << "BEST SOLUTION: " << best_cost << endl;
+        log << "BEST SOLUTION: " << best_cost << endl;
         if(engine.stopped()){
             cout << "TIMEOUT - OPTIMALITY PROOF NOT REACHED" << endl;
+            log << "TIMEOUT - OPTIMALITY PROOF NOT REACHED" << endl;
         }
         else{
             cout << "SEARCH COMPLETED - SOLUTION FOUND IS OPTIMAL" << endl;
+            log << "SEARCH COMPLETED - SOLUTION FOUND IS OPTIMAL" << endl;
         }
     }
 
     else {
         cout << "Model not implemented" << std::endl;
+        log << "Model not implemented" << std::endl;
     }
-
+    log.close();
     return 0;
 }
 

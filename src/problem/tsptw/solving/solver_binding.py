@@ -35,9 +35,10 @@ class SolverBinding(object):
         self.max_dist = np.sqrt(self.grid_size ** 2 + self.grid_size ** 2)
         self.max_tw_value = (self.n_city - 1) * (self.max_tw_size + self.max_tw_gap)
 
-        self.instance =  TSPTW.generate_random_instance(n_city=self.n_city, grid_size=self.grid_size,
-                                                        max_tw_gap=self.max_tw_gap, max_tw_size=self.max_tw_size,
-                                                        seed=seed, is_integer_instance=True)
+        # self.instance =  TSPTW.generate_random_instance(n_city=self.n_city, grid_size=self.grid_size,
+        #                                                 max_tw_gap=self.max_tw_gap, max_tw_size=self.max_tw_size,
+        #                                                 seed=seed, is_integer_instance=True)  # need change this into file
+        self.instance = TSPTW.read_tsptw_data(r"/workspaces/hybrid-cp-rl-solver/test21.tsptw")
 
         self.load_folder = load_folder
         self.model_file, self.latent_dim, self.hidden_layer, self.n_node_feat, self.n_edge_feat = self.find_model()
